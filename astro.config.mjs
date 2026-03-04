@@ -1,13 +1,18 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 
-// For GitHub Pages deployment, the repository name becomes the base path.
-// Set BASE_URL env var in GitHub Actions workflow.
-// For local development, base defaults to '/'
-const base = process.env.BASE_URL || '/';
+function normaliseBase(input) {
+  if (!input) return "/";
+  let base = input.trim();
+  if (!base.startsWith("/")) base = `/${base}`;
+  if (!base.endsWith("/")) base = `${base}/`;
+  return base;
+}
+
+const site = process.env.SITE_URL || "https://example.github.io";
+const base = normaliseBase(process.env.BASE_PATH);
 
 export default defineConfig({
-  site: 'https://gompels.github.io',
+  site,
   base,
-  output: 'static',
-  integrations: [],
+  output: "static",
 });
