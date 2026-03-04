@@ -1,0 +1,326 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+---
+
+<Layout title="Join Guild">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary via-primary to-secondary text-white py-12">
+    <div class="container-custom">
+      <h1 class="text-5xl font-bold mb-4">
+        Join GVG
+      </h1>
+      <p class="text-xl text-blue-100 max-w-2xl">
+        Ship real projects. Earn real money. Build your portfolio. Join 200+ student builders in the 
+        Gompels Venture Guild.
+      </p>
+    </div>
+  </section>
+
+  <!-- Who We're Looking For -->
+  <section class="bg-white section-padding">
+    <div class="container-custom">
+      <SectionHeader title="Who We're Looking For" subtitle="No experience required" />
+      
+      <div class="grid md:grid-cols-2 gap-12 mt-12">
+        <div>
+          <h3 class="text-2xl font-bold text-primary mb-4">Builders</h3>
+          <p class="text-gray-700 mb-6">
+            If you can code (or want to learn), you belong here. No portfolio required. We have bounties for 
+            every skill level: Beginner friendly utility projects, challenging intermediate work, or complex 
+            Advanced technical challenges.
+          </p>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="text-xl">🎯</span>
+              <span><strong>Ambitious?</strong> Claim an Advanced bounty and earn £3,000+</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-xl">📚</span>
+              <span><strong>Learning?</strong> Start with Beginner bounties and build skills</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-xl">👥</span>
+              <span><strong>Team player?</strong> Form a team with friends and collaborate</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-xl">🎨</span>
+              <span><strong>Designer?</strong> We have UI/UX bounties too</span>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-2xl font-bold text-primary mb-4">Mentors & Reviewers</h3>
+          <p class="text-gray-700 mb-6">
+            Experienced developers? Industry professionals? We need mentors to help builders succeed. 
+            Lead office hours, review code, provide feedback, and help shape the next generation.
+          </p>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="text-xl">⏰</span>
+              <span><strong>Flexible commitment.</strong> Office hours 2–4 hours/week</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-xl">🏆</span>
+              <span><strong>Judge bounties.</strong> Participate in fair, transparent evaluation</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-xl">📢</span>
+              <span><strong>Give talks.</strong> Share expertise and inspire builders</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-xl">🤝</span>
+              <span><strong>Network.</strong> Connect with peers and the student community</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Get Started -->
+  <section class="bg-gray-50 section-padding">
+    <div class="container-custom max-w-4xl">
+      <SectionHeader title="How to Get Started" subtitle="4 easy steps" />
+      
+      <div class="space-y-8 mt-12">
+        <div class="flex gap-6">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-accent to-accent-dark text-white font-bold text-2xl">
+              1
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold text-primary mb-3">Join Discord</h3>
+            <p class="text-gray-700 mb-4">
+              Our community lives on Discord. That's where we announce bounties, have office hours, 
+              and builders ask questions. It's free and open to everyone.
+            </p>
+            <Button href="https://discord.gg/gvg" variant="secondary" class="inline-block">
+              Join Discord Community →
+            </Button>
+          </div>
+        </div>
+
+        <div class="flex gap-6">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-accent to-accent-dark text-white font-bold text-2xl">
+              2
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold text-primary mb-3">Introduce Yourself</h3>
+            <p class="text-gray-700 mb-4">
+              Post a quick intro in <code>#introductions</code>: your name, what you build, 
+              and what you're interested in. Don't be shy!
+            </p>
+            <p class="text-gray-600 text-sm">
+              Intro template: <br/>
+              <code class="bg-gray-200 px-2 py-1 rounded text-xs">Hi I'm [Name]. I build [tech stack]. 
+              Interested in [Beginner/Intermediate/Advanced] bounties.</code>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-6">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-accent to-accent-dark text-white font-bold text-2xl">
+              3
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold text-primary mb-3">Browse Bounties</h3>
+            <p class="text-gray-700 mb-4">
+              Check out available bounties. Read the specs carefully. Ask questions in the dedicated 
+              bounty channel if anything's unclear. No dumb questions here.
+            </p>
+            <Button href="/bounties" variant="secondary" class="inline-block">
+              Browse All Bounties →
+            </Button>
+          </div>
+        </div>
+
+        <div class="flex gap-6">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-16 w-16 rounded-full bg-gradient-to-br from-accent to-accent-dark text-white font-bold text-2xl">
+              4
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold text-primary mb-3">Claim & Build</h3>
+            <p class="text-gray-700 mb-4">
+              Found one you want to work on? Comment on the bounty with "I want to claim this" 
+              and create a GitHub issue. Start building. Ask for help anytime in office hours.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Values -->
+  <section class="bg-white section-padding">
+    <div class="container-custom">
+      <SectionHeader title="Our Community Values" subtitle="How we work together" />
+      
+      <div class="grid md:grid-cols-2 gap-8 mt-12">
+        <Card>
+          <h3 class="text-xl font-bold text-primary mb-3">🎯 Meritocratic</h3>
+          <p class="text-gray-700">
+            Best work wins. Judging is fair and transparent. We don't play favourites. 
+            Your code, ideas, and effort speak louder than anything else.
+          </p>
+        </Card>
+
+        <Card>
+          <h3 class="text-xl font-bold text-primary mb-3">🤝 Supportive</h3>
+          <p class="text-gray-700">
+            Everyone starts somewhere. Mentors are here to help, not criticise. Ask questions. 
+            Share learnings. Celebrate wins together.
+          </p>
+        </Card>
+
+        <Card>
+          <h3 class="text-xl font-bold text-primary mb-3">📚 Growth-Focused</h3>
+          <p class="text-gray-700">
+            GVG exists so you can learn and grow. Ship real projects. Get feedback. Build skills 
+            employers want. Level up your career.
+          </p>
+        </Card>
+
+        <Card>
+          <h3 class="text-xl font-bold text-primary mb-3">🔒 Integrity-First</h3>
+          <p class="text-gray-700">
+            We do the right thing, always. Fair play. Transparent judging. Honest feedback. 
+            No shortcuts. No politics.
+          </p>
+        </Card>
+
+        <Card>
+          <h3 class="text-xl font-bold text-primary mb-3">🌍 Inclusive</h3>
+          <p class="text-gray-700">
+            Everyone is welcome. Different backgrounds, different experiences. We learn from 
+            each other. Diversity makes us stronger.
+          </p>
+        </Card>
+
+        <Card>
+          <h3 class="text-xl font-bold text-primary mb-3">⚡ Execution-Driven</h3>
+          <p class="text-gray-700">
+            We ship. No endless planning. No perfectionism. Done is better than perfect. 
+            Get it out, learn, iterate.
+          </p>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-gray-50 section-padding">
+    <div class="container-custom max-w-3xl">
+      <SectionHeader title="Frequently Asked Questions" />
+      
+      <div class="space-y-6 mt-12">
+        <details class="bg-white border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            Do I need experience to join?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            No. We have Beginner bounties perfect for learning. Start simple, build confidence, 
+            level up to harder projects. Mentors will help you along the way.
+          </div>
+        </details>
+
+        <details class="bg-white border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            What if I don't finish on time?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            Reach out early. Talk to mentors. Deadlines are firm (fair to all builders), 
+            but we're here to help you succeed. Most builders finish if they stay engaged and ask for help.
+          </div>
+        </details>
+
+        <details class="bg-white border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            Can I work alone or do I need a team?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            Both. Solo submissions are welcome. Larger bounties often require 2–4 person teams. 
+            Form a team with friends or find teammates in Discord. Your choice.
+          </div>
+        </details>
+
+        <details class="bg-white border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            What tech stack should I use?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            Whatever fits the spec. The spec tells you what matters (not the tech). 
+            Use what you're best with. If the bounty doesn't specify a tech stack, you're free to choose.
+          </div>
+        </details>
+
+        <details class="bg-white border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            Is there a membership fee?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            No. GVG is free. Discord is free. All our resources are free. 
+            You only pay if you use premium tools (we suggest free alternatives).
+          </div>
+        </details>
+
+        <details class="bg-white border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            How long before I can make money?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            Claim a bounty today, finish it in 4–8 weeks, get paid at Demo Day. 
+            Fast-track: find a Beginner bounty (2–3 weeks) and earn your first bounty reward in month 1.
+          </div>
+        </details>
+
+        <details class="bg-white border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            What happens if I disagree with a judging decision?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            You can appeal. File a formal appeal within 7 days with detailed reasoning. 
+            An independent panel reviews appeals fairly. We're transparent about the process.
+          </div>
+        </details>
+
+        <details class="bg-white border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            Is there a Code of Conduct?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            Yes. We enforce integrity and respect. All work must be original. Behaviour 
+            must be inclusive and professional. Violations result in bounty disqualification or removal.
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="bg-gradient-to-r from-accent to-accent-dark text-white section-padding">
+    <div class="container-custom text-center">
+      <h2 class="text-4xl font-bold mb-4">Ready to Ship?</h2>
+      <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+        Join 200+ builders, ship real projects, and earn cash. No experience required. 
+        Start building today.
+      </p>
+      <Button href="https://discord.gg/gvg" variant="secondary" size="lg">
+        Join Discord Community
+      </Button>
+      <p class="text-blue-200 mt-6">
+        Questions? Email <a href="mailto:hello@gvg.example.com" class="underline hover:no-underline">hello@gvg.example.com</a>
+      </p>
+    </div>
+  </section>
+</Layout>

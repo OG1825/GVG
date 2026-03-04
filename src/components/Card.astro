@@ -1,0 +1,22 @@
+---
+interface Props {
+  children: any;
+  class?: string;
+  href?: string;
+}
+
+const { class: className = '', href } = Astro.props;
+const finalClass = `rounded-lg border border-gray-200 bg-white shadow-sm hover:shadow-md p-6 ${className}`.trim();
+
+const Element = href ? 'a' : 'div';
+---
+
+{href ? (
+  <a href={href} class={finalClass}>
+    <slot />
+  </a>
+) : (
+  <div class={finalClass}>
+    <slot />
+  </div>
+)}

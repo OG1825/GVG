@@ -1,0 +1,182 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import EventCard from '../components/EventCard.astro';
+import Button from '../components/Button.astro';
+import { events } from '../data/events';
+
+const now = new Date();
+const upcomingEvents = events
+  .filter(e => new Date(e.date) > now)
+  .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+const pastEvents = events
+  .filter(e => new Date(e.date) <= now)
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+---
+
+<Layout title="Events">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary via-primary to-secondary text-white py-12">
+    <div class="container-custom">
+      <h1 class="text-5xl font-bold mb-4">
+        GVG Events
+      </h1>
+      <p class="text-xl text-blue-100 max-w-2xl">
+        Join us for build nights, demo days, talks, and pitch nights. Learn, network, and ship projects with the GVG community.
+      </p>
+    </div>
+  </section>
+
+  <!-- Upcoming Events -->
+  <section class="bg-white section-padding">
+    <div class="container-custom">
+      <SectionHeader title="Upcoming Events" subtitle={`${upcomingEvents.length} events coming up`} />
+      
+      {upcomingEvents.length > 0 ? (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+          {upcomingEvents.map(event => (
+            <EventCard
+              title={event.title}
+              date={event.date}
+              location={event.location}
+              type={event.type}
+              description={event.description}
+              link={event.link}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-lg text-gray-600">Currently no upcoming events. Check back soon!</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Event Types Explained -->
+  <section class="bg-gray-50 section-padding">
+    <div class="container-custom">
+      <SectionHeader title="Event Types" subtitle="What to expect at each event" />
+      
+      <div class="grid md:grid-cols-2 gap-8 mt-12">
+        <div class="p-6 bg-white rounded-lg border border-gray-200">
+          <h3 class="text-xl font-bold text-primary mb-3">🛠 Build Night</h3>
+          <p class="text-gray-700 mb-3">
+            Casual, hands-on sessions where builders work on bounties together. 
+            Ask questions, get instant feedback from mentors, and collaborate with peers.
+          </p>
+          <p class="text-sm text-gray-600">Typically 6-8pm. Bring your laptop. Free food & drinks.</p>
+        </div>
+
+        <div class="p-6 bg-white rounded-lg border border-gray-200">
+          <h3 class="text-xl font-bold text-primary mb-3">🎬 Demo Day</h3>
+          <p class="text-gray-700 mb-3">
+            Winners showcase completed bounties. See projects launch. Network with builders, 
+            sponsors, and investors. Celebration of shipping.
+          </p>
+          <p class="text-sm text-gray-600">Semi-formal. All GVG community invited.</p>
+        </div>
+
+        <div class="p-6 bg-white rounded-lg border border-gray-200">
+          <h3 class="text-xl font-bold text-primary mb-3">🎤 Talk</h3>
+          <p class="text-gray-700 mb-3">
+            Industry experts, founders, and technical leaders share insights. 
+            Topics vary: startup building, technical deep-dives, product design, fundraising.
+          </p>
+          <p class="text-sm text-gray-600">Q&A session included. Recordings posted online.</p>
+        </div>
+
+        <div class="p-6 bg-white rounded-lg border border-gray-200">
+          <h3 class="text-xl font-bold text-primary mb-3">💼 Pitch Night</h3>
+          <p class="text-gray-700 mb-3">
+            Builders or teams present project ideas and seek feedback or funding. 
+            Judges, investors, and mentors provide constructive critique and opportunities.
+          </p>
+          <p class="text-sm text-gray-600">Sign up to pitch or attend as audience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Past Events -->
+  {pastEvents.length > 0 && (
+    <section class="bg-white section-padding">
+      <div class="container-custom">
+        <SectionHeader title="Past Events" subtitle={`${pastEvents.length} events completed`} />
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 opacity-75">
+          {pastEvents.slice(0, 6).map(event => (
+            <EventCard
+              title={event.title}
+              date={event.date}
+              location={event.location}
+              type={event.type}
+              description={event.description}
+              link={event.link}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Event Tips -->
+  <section class="bg-blue-50 section-padding">
+    <div class="container-custom max-w-3xl">
+      <h2 class="text-3xl font-bold text-primary mb-6">Tips for Events</h2>
+      
+      <div class="space-y-4 text-gray-700">
+        <div>
+          <h3 class="font-bold text-primary mb-1">📱 RSVP Early</h3>
+          <p>Events fill up fast. RSVP on Discord or via the signup link. Spots are limited.</p>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-primary mb-1">💻 Bring Your Setup</h3>
+          <p>For build nights: bring your laptop and charger. Facilities provide good WiFi and power.</p>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-primary mb-1">🤝 Network & Ask Questions</h3>
+          <p>Don't be shy. Ask mentors for help. Chat with other builders. That's the whole point.</p>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-primary mb-1">📸 Photos & Sharing</h3>
+          <p>We often share photos on social media. Let us know if you'd rather not be photographed.</p>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-primary mb-1">🎯 Come With Intent</h3>
+          <p>Know what you want to work on or learn. Browse bounties, prepare questions, set goals.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subscribe Section -->
+  <section class="bg-gradient-to-r from-accent to-accent-dark text-white section-padding">
+    <div class="container-custom text-center max-w-2xl">
+      <h2 class="text-4xl font-bold mb-4">Never Miss an Event</h2>
+      <p class="text-xl text-blue-100 mb-8">
+        Subscribe to our mailing list to get event announcements, bounty updates, and community news.
+      </p>
+      <form class="flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault(); alert('Subscribe feature coming soon!')">
+        <input
+          type="email"
+          placeholder="your@email.com"
+          required
+          class="flex-1 px-4 py-3 rounded-lg text-primary focus-ring"
+          aria-label="Email address for event notifications"
+        />
+        <Button variant="secondary" size="lg">
+          Subscribe
+        </Button>
+      </form>
+      <p class="text-sm text-blue-200 mt-4">
+        Or join our <a href="/join" class="underline hover:no-underline">Discord community</a> for real-time updates.
+      </p>
+    </div>
+  </section>
+</Layout>

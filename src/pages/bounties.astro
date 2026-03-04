@@ -1,0 +1,239 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import BountyCard from '../components/BountyCard.astro';
+import Button from '../components/Button.astro';
+import { getCollection } from 'astro:content';
+
+const allBounties = await getCollection('bounties');
+
+// Get all unique tags and statuses for filters
+const allTags = Array.from(new Set(allBounties.flatMap(b => b.data.tags))).sort();
+const allStatuses = ['Open', 'In Progress', 'Shipped'] as const;
+const allDifficulties = ['Beginner', 'Intermediate', 'Advanced'] as const;
+---
+
+<Layout title="Bounties">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary via-primary to-secondary text-white py-12">
+    <div class="container-custom">
+      <h1 class="text-5xl font-bold mb-4">
+        {allBounties.length} Bounties
+      </h1>
+      <p class="text-xl text-blue-100 max-w-2xl">
+        Pick a project, build it to spec, and earn cash. Detailed requirements, clear timelines, proven fair judging.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filters & Search -->
+  <section class="bg-white border-b border-gray-200 sticky top-20 z-40 py-4 shadow-sm">
+    <div class="container-custom">
+      <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search bounties..."
+          class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus-ring"
+          aria-label="Search bounties by title or description"
+        />
+        
+        <div class="flex flex-wrap gap-2">
+          <select id="filterStatus" class="px-3 py-2 border border-gray-300 rounded-lg focus-ring">
+            <option value="">All Status</option>
+            {allStatuses.map(status => (
+              <option value={status}>{status}</option>
+            ))}
+          </select>
+
+          <select id="filterDifficulty" class="px-3 py-2 border border-gray-300 rounded-lg focus-ring">
+            <option value="">All Difficulty</option>
+            {allDifficulties.map(difficulty => (
+              <option value={difficulty}>{difficulty}</option>
+            ))}
+          </select>
+
+          <select id="sortBy" class="px-3 py-2 border border-gray-300 rounded-lg focus-ring">
+            <option value="updated">Recently Updated</option>
+            <option value="reward-high">Highest Reward</option>
+            <option value="reward-low">Lowest Reward</option>
+            <option value="deadline">Deadline (Soonest)</option>
+          </select>
+
+          <button
+            id="resetBtn"
+            class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
+            aria-label="Reset all filters"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Count -->
+  <section class="bg-gray-50 py-4 border-b border-gray-200">
+    <div class="container-custom">
+      <p class="text-sm text-gray-600">
+        <span id="resultCount">{allBounties.length}</span> bounties found
+      </p>
+    </div>
+  </section>
+
+  <!-- Bounty Grid -->
+  <section class="bg-white section-padding">
+    <div class="container-custom">
+      <div id="bountiesList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {allBounties.map(bounty => (
+          <BountyCard
+            title={bounty.data.title}
+            reward={bounty.data.reward}
+            difficulty={bounty.data.difficulty}
+            status={bounty.data.status}
+            deadline={bounty.data.deadline}
+            tags={bounty.data.tags}
+            href={`/bounties/${bounty.slug}`}
+          />
+        ))}
+      </div>
+
+      <div id="noResults" class="text-center py-12 hidden">
+        <p class="text-lg text-gray-600 mb-4">No bounties match your criteria.</p>
+        <Button variant="secondary" onclick="document.getElementById('resetBtn').click()">
+          Clear Filters
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data attribute for client-side filtering -->
+  <script type="application/json" id="bountiesData">
+  {
+    "bounties": [
+      {
+        "slug": "",
+        "title": "",
+        "description": "",
+        "reward": 0,
+        "difficulty": "",
+        "status": "",
+        "deadline": "",
+        "tags": []
+      }
+    ]
+  }
+  </script>
+
+  {allBounties.map(bounty => (
+    <script type="application/json" data-bounty={bounty.slug}>
+      {JSON.stringify({
+        slug: bounty.slug,
+        title: bounty.data.title,
+        description: bounty.body.substring(0, 100),
+        reward: bounty.data.reward,
+        difficulty: bounty.data.difficulty,
+        status: bounty.data.status,
+        deadline: bounty.data.deadline,
+        tags: bounty.data.tags
+      })}
+    </script>
+  ))}
+
+  <script>
+    const allBountiesData = {allBounties: allBounties.map(b => ({
+      slug: b.slug,
+      title: b.data.title,
+      description: b.body.substring(0, 100),
+      reward: b.data.reward,
+      difficulty: b.data.difficulty,
+      status: b.data.status,
+      deadline: b.data.deadline,
+      tags: b.data.tags
+    }))};
+
+    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
+    const filterStatus = document.getElementById('filterStatus') as HTMLSelectElement;
+    const filterDifficulty = document.getElementById('filterDifficulty') as HTMLSelectElement;
+    const sortBy = document.getElementById('sortBy') as HTMLSelectElement;
+    const resetBtn = document.getElementById('resetBtn') as HTMLButtonElement;
+    const bountiesList = document.getElementById('bountiesList') as HTMLDivElement;
+    const noResults = document.getElementById('noResults') as HTMLDivElement;
+    const resultCount = document.getElementById('resultCount') as HTMLSpanElement;
+
+    function filterAndSort() {
+      const searchQuery = searchInput.value.toLowerCase();
+      const statusFilter = filterStatus.value;
+      const difficultyFilter = filterDifficulty.value;
+      const sortValue = sortBy.value;
+
+      let filtered = allBountiesData.bounties.filter(bounty => {
+        const matchesSearch = !searchQuery || 
+          bounty.title.toLowerCase().includes(searchQuery) ||
+          bounty.description.toLowerCase().includes(searchQuery) ||
+          bounty.tags.some(tag => tag.toLowerCase().includes(searchQuery));
+        
+        const matchesStatus = !statusFilter || bounty.status === statusFilter;
+        const matchesDifficulty = !difficultyFilter || bounty.difficulty === difficultyFilter;
+
+        return matchesSearch && matchesStatus && matchesDifficulty;
+      });
+
+      // Sort
+      if (sortValue === 'reward-high') {
+        filtered.sort((a, b) => b.reward - a.reward);
+      } else if (sortValue === 'reward-low') {
+        filtered.sort((a, b) => a.reward - b.reward);
+      } else if (sortValue === 'deadline') {
+        filtered.sort((a, b) => new Date(a.deadline).getTime() - new Date(b.deadline).getTime());
+      } else {
+        filtered.sort((a, b) => new Date(b.deadline).getTime() - new Date(a.deadline).getTime());
+      }
+
+      resultCount.textContent = filtered.length.toString();
+
+      if (filtered.length === 0) {
+        bountiesList.classList.add('hidden');
+        noResults.classList.remove('hidden');
+      } else {
+        bountiesList.classList.remove('hidden');
+        noResults.classList.add('hidden');
+        
+        // Reorder cards
+        const cards = Array.from(bountiesList.querySelectorAll('[data-slug]')).sort((a, b) => {
+          const slugA = a.getAttribute('data-slug');
+          const slugB = b.getAttribute('data-slug');
+          const idxA = filtered.findIndex(b => b.slug === slugA);
+          const idxB = filtered.findIndex(b => b.slug === slugB);
+          return idxA - idxB;
+        });
+
+        cards.forEach(card => bountiesList.appendChild(card));
+
+        // Hide/show cards
+        Array.from(bountiesList.querySelectorAll('[data-slug]')).forEach(card => {
+          const slug = card.getAttribute('data-slug');
+          if (filtered.some(b => b.slug === slug)) {
+            (card as HTMLElement).classList.remove('hidden');
+          } else {
+            (card as HTMLElement).classList.add('hidden');
+          }
+        });
+      }
+    }
+
+    function reset() {
+      searchInput.value = '';
+      filterStatus.value = '';
+      filterDifficulty.value = '';
+      sortBy.value = 'updated';
+      filterAndSort();
+    }
+
+    searchInput.addEventListener('input', filterAndSort);
+    filterStatus.addEventListener('change', filterAndSort);
+    filterDifficulty.addEventListener('change', filterAndSort);
+    sortBy.addEventListener('change', filterAndSort);
+    resetBtn.addEventListener('click', reset);
+  </script>
+</Layout>

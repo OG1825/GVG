@@ -1,0 +1,59 @@
+---
+interface Props {
+  title: string;
+  date: string;
+  location: string;
+  type: 'Build Night' | 'Demo Day' | 'Talk' | 'Pitch Night';
+  description: string;
+  link?: string;
+}
+
+import Badge from './Badge.astro';
+
+const { title, date, location, type, description, link } = Astro.props;
+const eventDate = new Date(date);
+const formattedDate = eventDate.toLocaleDateString('en-GB', { 
+  weekday: 'short', 
+  month: 'short', 
+  day: 'numeric',
+  year: 'numeric'
+});
+const formattedTime = eventDate.toLocaleTimeString('en-GB', { 
+  hour: '2-digit', 
+  minute: '2-digit',
+  hour12: true 
+});
+
+const typeColours = {
+  'Build Night': 'primary',
+  'Demo Day': 'success',
+  'Talk': 'secondary',
+  'Pitch Night': 'warning'
+} as const;
+---
+
+<div class="card-shadow p-6">
+  <div class="flex justify-between items-start mb-3">
+    <h3 class="text-xl font-bold text-primary flex-1 pr-2">
+      {title}
+    </h3>
+    <Badge variant={typeColours[type]} size="sm">
+      {type}
+    </Badge>
+  </div>
+
+  <div class="space-y-2 mb-4 text-sm text-gray-600">
+    <p><strong>📅</strong> {formattedDate} at {formattedTime}</p>
+    <p><strong>📍</strong> {location}</p>
+  </div>
+
+  <p class="text-gray-700 mb-4">
+    {description}
+  </p>
+
+  {link && (
+    <a href={link} class="text-accent font-semibold hover:text-accent-dark inline-flex items-center">
+      Learn more →
+    </a>
+  )}
+</div>

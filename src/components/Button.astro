@@ -1,0 +1,48 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'text';
+  size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
+  children: string;
+  href?: string;
+  onclick?: string;
+  class?: string;
+}
+
+const { 
+  variant = 'primary', 
+  size = 'md',
+  disabled = false,
+  href,
+  onclick,
+  class: className
+} = Astro.props;
+
+const baseStyles = 'font-semibold rounded-lg transition-all ease-in-out hover:scale-105 active:scale-95 focus-ring';
+
+const sizeStyles = {
+  sm: 'px-4 py-2 text-sm',
+  md: 'px-6 py-3 text-base',
+  lg: 'px-8 py-4 text-lg'
+};
+
+const variantStyles = {
+  primary: 'bg-accent text-white hover:bg-accent-dark disabled:bg-gray-400 disabled:cursor-not-allowed',
+  secondary: 'border-2 border-primary text-primary hover:bg-gray-50 disabled:border-gray-400 disabled:text-gray-400 disabled:bg-gray-50',
+  text: 'text-accent hover:text-accent-dark underline disabled:text-gray-400 disabled:no-underline'
+};
+
+const finalClass = `${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className || ''}`.trim();
+
+const Element = href ? 'a' : 'button';
+---
+
+{href ? (
+  <a href={href} class={finalClass} {...(disabled ? { onclick: 'return false' } : {})}>
+    <slot />
+  </a>
+) : (
+  <button class={finalClass} disabled={disabled} {onclick}>
+    <slot />
+  </button>
+)}

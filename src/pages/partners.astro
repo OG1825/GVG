@@ -1,0 +1,363 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+---
+
+<Layout title="Partners">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary via-primary to-secondary text-white py-12">
+    <div class="container-custom">
+      <h1 class="text-5xl font-bold mb-4">
+        Partners & Sponsors
+      </h1>
+      <p class="text-xl text-blue-100 max-w-2xl">
+        University departments, industry partners, and investors work with GVG to fund real projects 
+        and discover emerging talent.
+      </p>
+    </div>
+  </section>
+
+  <!-- Why Partner -->
+  <section class="bg-white section-padding">
+    <div class="container-custom">
+      <SectionHeader title="Why Partner With GVG?" />
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        <Card class="text-center">
+          <div class="text-5xl mb-4">⚡</div>
+          <h3 class="text-xl font-bold text-primary mb-2">Fast Project Delivery</h3>
+          <p class="text-gray-700">
+            Vetted students ship real projects on deadline. Skip the months-long project cycles.
+          </p>
+        </Card>
+
+        <Card class="text-center">
+          <div class="text-5xl mb-4">💡</div>
+          <h3 class="text-xl font-bold text-primary mb-2">Fresh Perspectives</h3>
+          <p class="text-gray-700">
+            Students bring creativity and modern approaches. They're not constrained by legacy thinking.
+          </p>
+        </Card>
+
+        <Card class="text-center">
+          <div class="text-5xl mb-4">🎯</div>
+          <h3 class="text-xl font-bold text-primary mb-2">Scalable Solutions</h3>
+          <p class="text-gray-700">
+            Projects work for 100 users or 100,000. Built for real production deployment.
+          </p>
+        </Card>
+
+        <Card class="text-center">
+          <div class="text-5xl mb-4">💰</div>
+          <h3 class="text-xl font-bold text-primary mb-2">Cost Effective</h3>
+          <p class="text-gray-700">
+            Pay only for results. No overhead, no long-term contracts. Fair bounty-based model.
+          </p>
+        </Card>
+
+        <Card class="text-center">
+          <div class="text-5xl mb-4">🌱</div>
+          <h3 class="text-xl font-bold text-primary mb-2">Talent Pipeline</h3>
+          <p class="text-gray-700">
+            Identify top performers for internships, graduate roles, and consulting opportunities.
+          </p>
+        </Card>
+
+        <Card class="text-center">
+          <div class="text-5xl mb-4">🤝</div>
+          <h3 class="text-xl font-bold text-primary mb-2">Build Reputation</h3>
+          <p class="text-gray-700">
+            Demonstrate your commitment to student success and innovation. Strong employer brand value.
+          </p>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Current Partners -->
+  <section class="bg-gray-50 section-padding">
+    <div class="container-custom">
+      <SectionHeader title="Current Partners" subtitle="University departments and industry leaders" />
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        <Card>
+          <h3 class="text-xl font-bold text-primary mb-2">Student Services Office</h3>
+          <p class="text-gray-700 mb-4">
+            Sponsored the Student Portal Mobile App bounty. Seeking ongoing collaboration on campus technology.
+          </p>
+          <p class="text-sm text-gray-600">Contact: <strong>services@university.edu</strong></p>
+        </Card>
+
+        <Card>
+          <h3 class="text-xl font-bold text-primary mb-2">Academic Affairs</h3>
+          <p class="text-gray-700 mb-4">
+            Funded the AI-Powered Course Recommender. Partners on curriculum-related software tools.
+          </p>
+          <p class="text-sm text-gray-600">Contact: <strong>academic@university.edu</strong></p>
+        </Card>
+
+        <Card>
+          <h3 class="text-xl font-bold text-primary mb-2">Facilities Management</h3>
+          <p class="text-gray-700 mb-4">
+            Active sponsor for campus infrastructure and wayfinding projects.
+          </p>
+          <p class="text-sm text-gray-600">Contact: <strong>facilities@university.edu</strong></p>
+        </Card>
+
+        <Card>
+          <h3 class="text-xl font-bold text-primary mb-2">University Library</h3>
+          <p class="text-gray-700 mb-4">
+            Invested in the Book Discovery Engine. Keen to develop more student-facing tools.
+          </p>
+          <p class="text-sm text-gray-600">Contact: <strong>library@university.edu</strong></p>
+        </Card>
+
+        <Card>
+          <h3 class="text-xl font-bold text-primary mb-2">Student Wellbeing Services</h3>
+          <p class="text-gray-700 mb-4">
+            Backed the Mental Health Support Chatbot. Major ongoing investment in student support tech.
+          </p>
+          <p class="text-sm text-gray-600">Contact: <strong>wellbeing@university.edu</strong></p>
+        </Card>
+
+        <Card>
+          <h3 class="text-xl font-bold text-primary mb-2">Registrar's Office</h3>
+          <p class="text-gray-700 mb-4">
+            Sponsors exam and timetable utility bounties. Regular tool development needs.
+          </p>
+          <p class="text-sm text-gray-600">Contact: <strong>registrar@university.edu</strong></p>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- How Sponsorship Works -->
+  <section class="bg-white section-padding">
+    <div class="container-custom max-w-3xl">
+      <SectionHeader title="How Sponsorship Works" />
+      
+      <div class="space-y-8 mt-12">
+        <div class="flex gap-4">
+          <div class="text-4xl font-bold text-accent">1</div>
+          <div>
+            <h3 class="text-xl font-bold text-primary mb-2">Define Your Project</h3>
+            <p class="text-gray-700">
+              Tell us what you need built. We work with you to scope requirements, timeline, and budget. 
+              We ensure specifications are clear and achievable.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="text-4xl font-bold text-accent">2</div>
+          <div>
+            <h3 class="text-xl font-bold text-primary mb-2">Launch Bounty</h3>
+            <p class="text-gray-700">
+              We publish your bounty to 200+ student builders. Top talent applies immediately. 
+              You participate in the review process if desired.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="text-4xl font-bold text-accent">3</div>
+          <div>
+            <h3 class="text-xl font-bold text-primary mb-2">Project Execution</h3>
+            <p class="text-gray-700">
+              Builders get to work. We facilitate mentoring, feedback loops, and progress tracking. 
+              Regular updates keep you informed.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="text-4xl font-bold text-accent">4</div>
+          <div>
+            <h3 class="text-xl font-bold text-primary mb-2">Review & Launch</h3>
+            <p class="text-gray-700">
+              Expert panel judges submissions against spec. Winner is announced. You get production-ready code, 
+              full documentation, and source access.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="text-4xl font-bold text-accent">5</div>
+          <div>
+            <h3 class="text-xl font-bold text-primary mb-2">Support & Handover</h3>
+            <p class="text-gray-700">
+              30 days of technical support included. Builder available for questions and minor tweaks. 
+              You have full ownership and can build on the work.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Tiers -->
+  <section class="bg-gray-50 section-padding">
+    <div class="container-custom">
+      <SectionHeader title="Sponsorship Options" subtitle="Flexible packages for different budgets" />
+      
+      <div class="grid md:grid-cols-3 gap-8 mt-12">
+        <div class="bg-white rounded-lg border border-gray-200 p-8">
+          <h3 class="text-2xl font-bold text-primary mb-2">Starter</h3>
+          <p class="text-gray-600 mb-6">Small utilities and tools</p>
+          <p class="text-4xl font-bold text-accent mb-6">£500–1,500</p>
+          <ul class="space-y-3 text-gray-700 text-sm mb-8">
+            <li>✓ Bounty configuration help</li>
+            <li>✓ Talent pool access</li>
+            <li>✓ 4-week timeline</li>
+            <li>✓ Completed source code</li>
+            <li>✓ 30 days support</li>
+          </ul>
+          <Button href="#contact" variant="secondary" size="lg" class="w-full">
+            Get Started
+          </Button>
+        </div>
+
+        <div class="bg-gradient-to-br from-accent to-accent-dark text-white rounded-lg p-8 ring-2 ring-accent">
+          <div class="text-sm font-bold text-blue-200 mb-2">MOST POPULAR</div>
+          <h3 class="text-2xl font-bold mb-2">Professional</h3>
+          <p class="text-blue-100 mb-6">Complex, real-impact projects</p>
+          <p class="text-4xl font-bold mb-6">£1,500–3,500</p>
+          <ul class="space-y-3 text-blue-100 text-sm mb-8">
+            <li>✓ Everything in Starter</li>
+            <li>✓ Dedicated project manager</li>
+            <li>✓ Weekly sync meetings</li>
+            <li>✓ Integrated testing/QA</li>
+            <li>✓ Deployment assistance</li>
+            <li>✓ 60 days support</li>
+            <li>✓ Demo Day feature</li>
+          </ul>
+          <Button href="#contact" variant="primary" size="lg" class="w-full">
+            Get Started
+          </Button>
+        </div>
+
+        <div class="bg-white rounded-lg border border-gray-200 p-8">
+          <h3 class="text-2xl font-bold text-primary mb-2">Enterprise</h3>
+          <p class="text-gray-600 mb-6">Multiple bounties & custom</p>
+          <p class="text-4xl font-bold text-accent mb-6">£3,500+</p>
+          <ul class="space-y-3 text-gray-700 text-sm mb-8">
+            <li>✓ Everything in Professional</li>
+            <li>✓ Custom scoping workshops</li>
+            <li>✓ Multi-phase projects</li>
+            <li>✓ Technical team involvement</li>
+            <li>✓ Ongoing partnership</li>
+            <li>✓ 90 days+ support</li>
+            <li>✓ Exclusive talent access</li>
+          </ul>
+          <Button href="#contact" variant="secondary" size="lg" class="w-full">
+            Schedule Call
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-white section-padding">
+    <div class="container-custom max-w-3xl">
+      <SectionHeader title="Sponsorship FAQ" />
+      
+      <div class="space-y-6 mt-12">
+        <details class="border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            How long does a typical project take?
+          </summary>
+          <div class="mt-4 text-gray-700 space-y-2">
+            <p>
+              Most bounties take 4–8 weeks from publishing to completion. The timeline depends on project complexity:
+            </p>
+            <ul class="list-disc list-inside space-y-1 text-sm">
+              <li>Beginner projects: 2–3 weeks</li>
+              <li>Intermediate: 4–6 weeks</li>
+              <li>Advanced: 6–10 weeks</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            Do I need to provide detailed technical specs?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            <p>
+              We recommend providing clear, detailed specifications. Our team can help you write them. 
+              Vague requirements lead to misalignment. We offer a spec-writing consultation as part of Enterprise packages.
+            </p>
+          </div>
+        </details>
+
+        <details class="border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            What if the project isn't completed to spec?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            <p>
+              We require all submissions to meet acceptance criteria. If a project doesn't pass, we work with 
+              the builder to fix issues or re-open the bounty if no acceptable solution emerged. You don't pay 
+              for incomplete work.
+            </p>
+          </div>
+        </details>
+
+        <details class="border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            Can I own the code and IP?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            <p>
+              Yes. You own all code and intellectual property. The builder retains the right to showcase the project 
+              in their portfolio (with attribution). Source code and documentation are yours to use, modify, and deploy.
+            </p>
+          </div>
+        </details>
+
+        <details class="border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            Is there a team option? Can students work in teams?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            <p>
+              Yes. We encourage team submissions for larger bounties. You can specify whether teams are allowed 
+              and how rewards are split (50/50, 60/40, etc.). Larger projects often require 2–4 person teams.
+            </p>
+          </div>
+        </details>
+
+        <details class="border border-gray-200 rounded-lg p-6 group">
+          <summary class="font-bold text-primary text-lg cursor-pointer group-open:text-accent">
+            What if I want to sponsor multiple projects?
+          </summary>
+          <div class="mt-4 text-gray-700">
+            <p>
+              Great! We offer volume discounts for organisations sponsoring 3+ bounties. Let's discuss a custom 
+              partnership structure that works for your budget and roadmap.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact CTA -->
+  <section id="contact" class="bg-gradient-to-r from-accent to-accent-dark text-white section-padding">
+    <div class="container-custom text-center max-w-3xl">
+      <h2 class="text-4xl font-bold mb-4">Ready to Partner?</h2>
+      <p class="text-xl text-blue-100 mb-8">
+        Let's discuss how GVG can help drive your projects forward. Book a 30-minute consultation with our team.
+      </p>
+      <Button href="mailto:partners@gvg.example.com" variant="secondary" size="lg">
+        Contact Us
+      </Button>
+      <p class="text-blue-200 mt-6">
+        Questions? Email <a href="mailto:partners@gvg.example.com" class="underline hover:no-underline">partners@gvg.example.com</a>
+      </p>
+    </div>
+  </section>
+</Layout>

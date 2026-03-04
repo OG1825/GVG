@@ -1,0 +1,277 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../../components/Card.astro';
+import Badge from '../../components/Badge.astro';
+import Button from '../../components/Button.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const bounties = await getCollection('bounties');
+  return bounties.map(bounty => ({
+    params: { slug: bounty.slug },
+    props: { bounty }
+  }));
+}
+
+const { bounty } = Astro.props;
+const { Content } = await bounty.render();
+
+const statusColours = {
+  'Open': 'primary',
+  'In Progress': 'warning',
+  'Shipped': 'success'
+} as const;
+
+const difficultyColours = {
+  'Beginner': 'success',
+  'Intermediate': 'primary',
+  'Advanced': 'warning'
+} as const;
+
+const isOpen = bounty.data.status === 'Open';
+const deadlineDate = new Date(bounty.data.deadline);
+const isOverdue = deadlineDate < new Date();
+---
+
+<Layout title={bounty.data.title} description={`£${bounty.data.reward} bounty: ${bounty.data.title}`}>
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary via-primary to-secondary text-white py-12">
+    <div class="container-custom">
+      <div class="mb-6">
+        <Badge variant={statusColours[bounty.data.status]}>
+          {bounty.data.status}
+        </Badge>
+      </div>
+      <h1 class="text-5xl font-bold mb-4">
+        {bounty.data.title}
+      </h1>
+      <p class="text-xl text-blue-100 max-w-2xl mb-6 font-light">
+        {bounty.data.sponsor}
+      </p>
+      <div class="flex items-center gap-4">
+        <div>
+          <p class="text-4xl font-bold">£{bounty.data.reward.toLocaleString()}</p>
+          <p class="text-blue-200 text-sm mt-1">Reward</p>
+        </div>
+        <div class="w-px h-16 bg-blue-400 opacity-50"></div>
+        <div>
+          <p class="text-lg font-semibold">
+            {deadlineDate.toLocaleDateString('en-GB', { 
+              weekday: 'short',
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric'
+            })}
+          </p>
+          <p class="text-blue-200 text-sm mt-1">
+            {isOverdue ? 'Deadline passed' : 'Deadline'}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="section-padding bg-white">
+    <div class="container-custom grid lg:grid-cols-3 gap-12">
+      <!-- Article -->
+      <div class="lg:col-span-2">
+        <article class="prose prose-sm max-w-none">
+          <Content />
+        </article>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="space-y-6">
+        <!-- Status Card -->
+        <Card>
+          <h3 class="font-bold text-primary mb-4">Project Status</h3>
+          <div class="space-y-4">
+            <div>
+              <p class="text-sm text-gray-600">Status</p>
+              <Badge variant={statusColours[bounty.data.status]} size="md">
+                {bounty.data.status}
+              </Badge>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">Difficulty</p>
+              <Badge variant={difficultyColours[bounty.data.difficulty]} size="md">
+                {bounty.data.difficulty}
+              </Badge>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600">Last Updated</p>
+              <p class="font-semibold text-primary">
+                {new Date(bounty.data.updatedAt).toLocaleDateString('en-GB', {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric'
+                })}
+              </p>
+            </div>
+          </div>
+        </Card>
+
+        <!-- Details Card -->
+        <Card>
+          <h3 class="font-bold text-primary mb-4">Details</h3>
+          <div class="space-y-4">
+            <div>
+              <p class="text-sm text-gray-600 mb-1">Reward</p>
+              <p class="text-2xl font-bold text-accent">£{bounty.data.reward.toLocaleString()}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600 mb-1">Sponsor</p>
+              <p class="font-semibold text-primary">{bounty.data.sponsor}</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600 mb-1">Deadline</p>
+              <p class="font-semibold text-primary">
+                {deadlineDate.toLocaleDateString('en-GB', {
+                  weekday: 'short',
+                  month: 'short',
+                  day: 'numeric'
+                })}
+              </p>
+              {isOverdue && (
+                <p class="text-xs text-danger mt-1">⚠️ Deadline has passed</p>
+              )}
+            </div>
+          </div>
+        </Card>
+
+        <!-- Tags Card -->
+        {bounty.data.tags.length > 0 && (
+          <Card>
+            <h3 class="font-bold text-primary mb-4">Tags</h3>
+            <div class="flex flex-wrap gap-2">
+              {bounty.data.tags.map(tag => (
+                <Badge variant="secondary" size="sm">
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+          </Card>
+        )}
+
+        <!-- Links Card -->
+        <Card>
+          <h3 class="font-bold text-primary mb-4">Resources</h3>
+          <div class="space-y-3">
+            {bounty.data.repo && (
+              <a 
+                href={bounty.data.repo}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-2 text-accent hover:text-accent-dark font-semibold"
+              >
+                <span>📦</span> Repository
+              </a>
+            )}
+            {bounty.data.demo && (
+              <a 
+                href={bounty.data.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-2 text-accent hover:text-accent-dark font-semibold"
+              >
+                <span>🎬</span> Live Demo
+              </a>
+            )}
+            {!bounty.data.repo && !bounty.data.demo && (
+              <p class="text-sm text-gray-600">No external resources linked.</p>
+            )}
+          </div>
+        </Card>
+
+        <!-- CTA -->
+        {isOpen && !isOverdue && (
+          <Button href="/join" variant="primary" size="lg" class="w-full">
+            Claim This Bounty
+          </Button>
+        )}
+        {!isOpen && (
+          <Card class="bg-gray-50 text-center">
+            <p class="text-sm text-gray-600 mb-3">
+              {bounty.data.status === 'In Progress' 
+                ? 'This bounty is currently being worked on.' 
+                : 'This bounty has been completed.'}
+            </p>
+            <Button href="/bounties" variant="secondary" size="sm">
+              Browse Other Bounties
+            </Button>
+          </Card>
+        )}
+        {isOverdue && (
+          <Card class="bg-yellow-50 text-center">
+            <p class="text-sm text-warning mb-3">⚠️ Deadline has passed</p>
+            <Button href="/bounties" variant="secondary" size="sm">
+              Browse Other Bounties
+            </Button>
+          </Card>
+        )}
+      </aside>
+    </div>
+  </section>
+
+  <!-- Related Bounties -->
+  <section class="bg-gray-50 section-padding">
+    <div class="container-custom">
+      <h2 class="text-3xl font-bold text-primary mb-8">Similar Bounties</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        {bounty.data.tags.slice(0, 4).map((tag, idx) => (
+          <Card class="p-4">
+            <p class="text-sm text-gray-600">Related to: <strong>{tag}</strong></p>
+            <Button href={`/bounties?tag=${tag}`} variant="text">
+              View bounties with {tag} →
+            </Button>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Back Link -->
+  <section class="bg-white section-padding">
+    <div class="container-custom">
+      <Button href="/bounties" variant="text">
+        ← Back to Bounties
+      </Button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .prose {
+    color: #374151;
+  }
+
+  .prose h2 {
+    @apply text-2xl font-bold text-primary mt-8 mb-4;
+  }
+
+  .prose h3 {
+    @apply text-xl font-bold text-primary mt-6 mb-3;
+  }
+
+  .prose p {
+    @apply mb-4 leading-relaxed;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply mb-4 ml-6;
+  }
+
+  .prose li {
+    @apply mb-2;
+  }
+
+  .prose code {
+    @apply bg-gray-100 text-primary px-2 py-1 rounded font-mono text-sm;
+  }
+
+  .prose a {
+    @apply text-accent hover:text-accent-dark underline font-semibold;
+  }
+</style>

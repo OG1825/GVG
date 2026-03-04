@@ -1,0 +1,265 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Card from '../components/Card.astro';
+import Badge from '../components/Badge.astro';
+
+const steps = [
+  {
+    number: '1',
+    title: 'Submit Your Idea',
+    icon: '💡',
+    description: 'Scan for open bounties that match your skills. Each bounty has clear requirements, timelines, and acceptance criteria. No hidden requirements.'
+  },
+  {
+    number: '2',
+    title: 'Build & Ship',
+    icon: '🛠',
+    description: 'Create a GitHub issue or PR to claim the bounty. Work independently or in teams. Get feedback from mentors in our Discord.'
+  },
+  {
+    number: '3',
+    title: 'Submit for Review',
+    icon: '📤',
+    description: 'Submit your completed work before the deadline. Include documentation, tests, and a demo or live link.'
+  },
+  {
+    number: '4',
+    title: 'Expert Judging',
+    icon: '👨‍⚖️',
+    description: 'A panel of industry experts reviews submissions based on the spec. Judging is fair, transparent, and meritocratic.'
+  },
+  {
+    number: '5',
+    title: 'Get Paid & Credited',
+    icon: '💰',
+    description: 'Winners receive cash rewards, LinkedIn endorsements, portfolio credit, and public recognition.'
+  },
+  {
+    number: '6',
+    title: 'Celebrate Wins',
+    icon: '🎉',
+    description: 'Featured projects showcase at Demo Days. Your work gets real users. Build your reputation in the startup ecosystem.'
+  }
+];
+
+const judgingCriteria = [
+  { title: 'Code Quality', description: 'Clean, readable, well-tested code. Follows best practices and conventions.' },
+  { title: 'Completeness', description: 'All requirements met. No shortcuts. Project ready for production or real use.' },
+  { title: 'User Experience', description: 'Intuitive, accessible interface. Works smoothly on target platforms.' },
+  { title: 'Documentation', description: 'Clear setup instructions, API docs, changelog. Other developers can understand and extend your work.' },
+  { title: 'Innovation', description: 'Thoughtful features, elegant solutions. Goes beyond the bare spec where sensible.' },
+  { title: 'Compliance', description: 'Adheres to Code of Conduct. All work original and properly attributed. Security best practices followed.' }
+];
+
+const payoutTiers = [
+  { name: 'Beginner', rewards: '£500 – £1,500', description: 'Perfect for learning and first projects' },
+  { name: 'Intermediate', rewards: '£1,500 – £3,000', description: 'Significant scope, real impact' },
+  { name: 'Advanced', rewards: '£3,000+', description: 'Complex, high-responsibility projects' }
+];
+---
+
+<Layout title="How it Works">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-br from-primary via-primary to-secondary text-white py-16">
+    <div class="container-custom">
+      <h1 class="text-5xl sm:text-6xl font-bold mb-6">How GVG Works</h1>
+      <p class="text-xl text-blue-100 max-w-3xl font-light">
+        We've built a transparent, fair system for funding startup ideas. Pick a bounty, ship it to spec, and earn cash + portfolio credit.
+      </p>
+    </div>
+  </section>
+
+  <!-- The 6-Step Process -->
+  <section class="bg-white section-padding">
+    <div class="container-custom">
+      <SectionHeader title="6 Steps to Success" />
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+        {steps.map(step => (
+          <Card class="relative">
+            <div class="text-5xl mb-4">{step.icon}</div>
+            <div class="text-4xl font-bold text-accent opacity-20 absolute top-6 right-6">{step.number}</div>
+            <h3 class="text-xl font-bold text-primary mb-3 pr-8">{step.title}</h3>
+            <p class="text-gray-700">{step.description}</p>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Process -->
+  <section class="bg-gray-50 section-padding">
+    <div class="container-custom max-w-4xl">
+      <SectionHeader title="Detailed Timeline" subtitle="What to expect from start to launch" />
+      
+      <div class="space-y-8 mt-12">
+        <div class="flex gap-4">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-500 text-white font-bold text-lg">Week 1</div>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold text-primary">Specification & Planning</h4>
+            <p class="text-gray-700 mt-1">Read the bounty spec carefully. Ask questions in Discord. Set up your development environment and claim the bounty on GitHub.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-500 text-white font-bold text-lg">Weeks 2-4</div>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold text-primary">Core Development</h4>
+            <p class="text-gray-700 mt-1">Build the main features. Commit regularly to GitHub. Seek feedback in office hours and Discord. Don't wait until the last minute.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-500 text-white font-bold text-lg">Week 5</div>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold text-primary">Testing & Polish</h4>
+            <p class="text-gray-700 mt-1">Write tests. Fix bugs. Improve UX and performance. Document your code and setup process thoroughly.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-500 text-white font-bold text-lg">Day 1</div>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold text-primary">Submission & Review</h4>
+            <p class="text-gray-700 mt-1">Submit your work before the deadline. Include a demo video, live link, and clear documentation. Expert judges evaluate all submissions.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex-shrink-0">
+            <div class="flex items-center justify-center h-12 w-12 rounded-lg bg-blue-500 text-white font-bold text-lg">1-2 weeks</div>
+          </div>
+          <div>
+            <h4 class="text-lg font-bold text-primary">Winner Announcement</h4>
+            <p class="text-gray-700 mt-1">Winners announced on the Demo Day. Cash transferred within 5 business days. Portfolio credit and endorsements added.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Judging Criteria -->
+  <section class="bg-white section-padding">
+    <div class="container-custom">
+      <SectionHeader title="Judging Criteria" subtitle="How we evaluate submissions" />
+      
+      <div class="grid md:grid-cols-2 gap-6 mt-12">
+        {judgingCriteria.map(criterion => (
+          <Card>
+            <h3 class="text-lg font-bold text-primary mb-2">{criterion.title}</h3>
+            <p class="text-gray-700">{criterion.description}</p>
+          </Card>
+        ))}
+      </div>
+
+      <div class="bg-blue-50 border-l-4 border-accent rounded-lg p-6 mt-12">
+        <h4 class="font-bold text-primary mb-2">🎯 The Golden Rule</h4>
+        <p class="text-gray-700">
+          We judge fairly and transparently. The best solution to the spec wins. Judging panels include industry practitioners, not just internal staff. 
+          Feedback is constructive, and all judges sign NDAs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Payout & Rewards -->
+  <section class="bg-gray-50 section-padding">
+    <div class="container-custom">
+      <SectionHeader title="Payouts & Rewards" subtitle="What winners earn" />
+      
+      <div class="grid md:grid-cols-3 gap-8 mt-12">
+        {payoutTiers.map(tier => (
+          <Card class="text-center border-2 border-gray-200">
+            <h3 class="text-2xl font-bold text-primary mb-2">{tier.name}</h3>
+            <p class="text-3xl font-bold text-accent mb-3">{tier.rewards}</p>
+            <p class="text-gray-700 text-sm">{tier.description}</p>
+          </Card>
+        ))}
+      </div>
+
+      <div class="space-y-6 mt-16 max-w-3xl">
+        <div>
+          <h4 class="font-bold text-primary mb-2">💰 Cash Rewards</h4>
+          <p class="text-gray-700">Direct payment to verified PayPal or bank transfer. Processed within 5 business days of Demo Day.</p>
+        </div>
+        
+        <div>
+          <h4 class="font-bold text-primary mb-2">🏆 Portfolio Credit</h4>
+          <p class="text-gray-700">Your project featured on GVG website, in our alumni directory, and shared on our social channels. Permanent portfolio piece.</p>
+        </div>
+        
+        <div>
+          <h4 class="font-bold text-primary mb-2">💼 LinkedIn Endorsement</h4>
+          <p class="text-gray-700">Public endorsement from GVG and sponsor organisations. Boosts your professional credibility with real skill validation.</p>
+        </div>
+        
+        <div>
+          <h4 class="font-bold text-primary mb-2">🤝 Networking Opportunities</h4>
+          <p class="text-gray-700">Connect with sponsors, mentors, and investor networks. Open doors to internships, jobs, and future collaborations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integrity Statement -->
+  <section class="bg-white section-padding">
+    <div class="container-custom max-w-3xl">
+      <SectionHeader title="Integrity & Fair Play" />
+      
+      <div class="space-y-6 text-gray-700">
+        <p>
+          GVG is built on fairness, transparency, and merit. We take integrity seriously.
+        </p>
+
+        <div class="bg-blue-50 rounded-lg p-6 space-y-4">
+          <div>
+            <h4 class="font-bold text-primary mb-2">No Plagiarism or Cheating</h4>
+            <p>All work must be your own original creation. Using external code is fine if properly credited. Any form of academic dishonesty results in immediate disqualification.</p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-primary mb-2">Transparent Judging</h4>
+            <p>Judging panels include external industry experts, never just internal staff. All judges sign NDAs. Scoring rubrics are published upfront. Winner announcements include judge commentary.</p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-primary mb-2">Clear Specs, Clear Expectations</h4>
+            <p>Every bounty includes detailed requirements, acceptance criteria, and evaluation metrics. No ambiguity. No surprise requirements added mid-project.</p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-primary mb-2">Dispute Resolution</h4>
+            <p>Disagree with a decision? File an appeal within 7 days with detailed reasoning. An independent panel reviews appeals fairly.</p>
+          </div>
+        </div>
+
+        <p class="text-sm italic text-gray-600">
+          Questions about our process? Email <a href="mailto:integrity@gvg.example.com" class="text-accent font-semibold">integrity@gvg.example.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-gradient-to-r from-accent to-accent-dark text-white section-padding">
+    <div class="container-custom text-center">
+      <h2 class="text-4xl font-bold mb-4">Ready to Get Started?</h2>
+      <p class="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
+        Browse bounties, pick one that excites you, and start building.
+      </p>
+      <Button href="/bounties" variant="secondary" size="lg">
+        Browse All Bounties
+      </Button>
+    </div>
+  </section>
+</Layout>

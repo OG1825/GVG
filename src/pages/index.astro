@@ -1,0 +1,219 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Card from '../components/Card.astro';
+import BountyCard from '../components/BountyCard.astro';
+import EventCard from '../components/EventCard.astro';
+import Badge from '../components/Badge.astro';
+import { getCollection } from 'astro:content';
+import { events } from '../data/events';
+
+const allBounties = await getCollection('bounties');
+const activeBounties = allBounties
+  .filter(b => b.data.status === 'Open')
+  .sort((a, b) => new Date(b.data.updatedAt).getTime() - new Date(a.data.updatedAt).getTime())
+  .slice(0, 6);
+
+const upcomingEvents = events
+  .filter(e => new Date(e.date) > new Date())
+  .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+  .slice(0, 3);
+
+const totalRewards = allBounties.reduce((sum, b) => sum + b.data.reward, 0);
+const totalBounties = allBounties.length;
+---
+
+<Layout title="Home">
+  <!-- Hero Section -->
+  <section class="min-h-screen bg-gradient-to-br from-primary via-primary to-secondary flex items-center">
+    <div class="container-custom py-20">
+      <div class="max-w-3xl">
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-6 leading-tight">
+          Ship Real Projects.<br />Earn Real Money.
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 font-light leading-relaxed max-w-2xl">
+          GVG funds and ships real projects through bounty challenges and build nights. 
+          Winners earn cash, endorsements, and portfolio credit.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <Button href="/bounties" variant="primary" size="lg">
+            Browse Bounties
+          </Button>
+          <Button href="/join" variant="secondary" size="lg">
+            Join Guild
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="bg-white py-12 border-b border-gray-200">
+    <div class="container-custom">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div>
+          <p class="text-4xl font-bold text-accent">{totalBounties}</p>
+          <p class="text-gray-600 mt-1">Active Bounties</p>
+        </div>
+        <div>
+          <p class="text-4xl font-bold text-accent">£{(totalRewards / 1000).toFixed(1)}k</p>
+          <p class="text-gray-600 mt-1">Funded Projects</p>
+        </div>
+        <div>
+          <p class="text-4xl font-bold text-accent">127</p>
+          <p class="text-gray-600 mt-1">Builders Active</p>
+        </div>
+        <div>
+          <p class="text-4xl font-bold text-accent">43</p>
+          <p class="text-gray-600 mt-1">Projects Shipped</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Preview -->
+  <section class="bg-white section-padding">
+    <div class="container-custom">
+      <SectionHeader title="How It Works" subtitle="Three simple steps to build and earn" />
+      
+      <div class="grid md:grid-cols-3 gap-8 mt-12">
+        <Card class="text-center">
+          <div class="text-5xl mb-4">📋</div>
+          <h3 class="text-xl font-bold mb-3">Browse Bounties</h3>
+          <p class="text-gray-600">
+            Explore funded projects from university departments. Each has clear requirements, rewards, and deadlines.
+          </p>
+        </Card>
+
+        <Card class="text-center">
+          <div class="text-5xl mb-4">🚀</div>
+          <h3 class="text-xl font-bold mb-3">Ship With Us</h3>
+          <p class="text-gray-600">
+            Pick a bounty, build it to spec, and submit for review. Get feedback from industry experts.
+          </p>
+        </Card>
+
+        <Card class="text-center">
+          <div class="text-5xl mb-4">💰</div>
+          <h3 class="text-xl font-bold mb-3">Get Paid & Credited</h3>
+          <p class="text-gray-600">
+            Earn cash, portfolio credit, and endorsements. Your work becomes part of your professional brand.
+          </p>
+        </Card>
+      </div>
+
+      <div class="text-center mt-12">
+        <Button href="/how-it-works" variant="text">
+          Learn more about our process →
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Bounties -->
+  <section class="bg-gray-50 section-padding">
+    <div class="container-custom">
+      <SectionHeader title="Featured Bounties" subtitle="Latest projects seeking builders" />
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+        {activeBounties.map(bounty => (
+          <BountyCard
+            title={bounty.data.title}
+            reward={bounty.data.reward}
+            difficulty={bounty.data.difficulty}
+            status={bounty.data.status}
+            deadline={bounty.data.deadline}
+            tags={bounty.data.tags}
+            href={`/bounties/${bounty.slug}`}
+          />
+        ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <Button href="/bounties" variant="primary" size="lg">
+          View All {totalBounties} Bounties
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events -->
+  <section class="bg-white section-padding">
+    <div class="container-custom">
+      <SectionHeader title="Upcoming Events" subtitle="Join us for builds, demos, and talks" />
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+        {upcomingEvents.map(event => (
+          <EventCard
+            title={event.title}
+            date={event.date}
+            location={event.location}
+            type={event.type}
+            description={event.description}
+            link={event.link}
+          />
+        ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <Button href="/events" variant="primary" size="lg">
+          View All Events
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Code of Conduct Section -->
+  <section id="conduct" class="bg-blue-50 section-padding">
+    <div class="container-custom max-w-3xl">
+      <h2 class="text-3xl font-bold text-primary mb-6">Code of Conduct & Fair Play</h2>
+      
+      <div class="space-y-4 text-gray-700">
+        <p>
+          GVG is committed to fostering an inclusive, respectful community. All builders, sponsors, and organisers agree to uphold these principles:
+        </p>
+        
+        <div class="space-y-3">
+          <div>
+            <h3 class="font-bold text-primary mb-1">✓ Integrity & Honesty</h3>
+            <p>All work submitted must be your own original work or properly credited. No plagiarism, no cheating.</p>
+          </div>
+          
+          <div>
+            <h3 class="font-bold text-primary mb-1">✓ Inclusive & Respectful</h3>
+            <p>Treat all community members with respect regardless of background, identity, or experience level.</p>
+          </div>
+          
+          <div>
+            <h3 class="font-bold text-primary mb-1">✓ Transparent Communication</h3>
+            <p>Be honest about progress, blockers, and challenges. Ask for help early and celebrate wins together.</p>
+          </div>
+          
+          <div>
+            <h3 class="font-bold text-primary mb-1">✓ Focus on Learning</h3>
+            <p>GVG prioritises growth. Feedback is constructive, and failure is an opportunity to improve.</p>
+          </div>
+        </div>
+        
+        <p class="text-sm text-gray-600 pt-4">
+          Violations of this code may result in bounty disqualification or removal from the community. 
+          Report concerns privately to <a href="mailto:conduct@gvg.example.com">conduct@gvg.example.com</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-gradient-to-r from-accent to-accent-dark section-padding">
+    <div class="container-custom text-center text-white">
+      <h2 class="text-4xl font-bold mb-4">Ready to Ship?</h2>
+      <p class="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
+        Join 127+ builders in the GVG community. Pick a bounty, build something amazing, earn cash and portfolio credit.
+      </p>
+      <Button href="/join" variant="secondary" size="lg">
+        Join Guild Today
+      </Button>
+    </div>
+  </section>
+</Layout>

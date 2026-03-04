@@ -1,0 +1,67 @@
+---
+interface Props {
+  title: string;
+  reward: number;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  status: 'Open' | 'In Progress' | 'Shipped';
+  deadline: string;
+  tags: string[];
+  href: string;
+}
+
+import Badge from './Badge.astro';
+
+const { title, reward, difficulty, status, deadline, tags, href } = Astro.props;
+
+const statusColours = {
+  'Open': 'primary',
+  'In Progress': 'warning',
+  'Shipped': 'success'
+} as const;
+
+const difficultyColours = {
+  'Beginner': 'success',
+  'Intermediate': 'primary',
+  'Advanced': 'warning'
+} as const;
+
+const isOpen = status === 'Open';
+---
+
+<a href={href} class="card-shadow p-6 hover:shadow-lg block">
+  <div class="flex justify-between items-start mb-3">
+    <h3 class="text-xl font-bold text-primary max-w-xs pr-2 line-clamp-2">
+      {title}
+    </h3>
+    <Badge variant={statusColours[status]} size="sm">
+      {status}
+    </Badge>
+  </div>
+
+  <div class="mb-4">
+    <p class="text-2xl font-bold text-accent mb-1">
+      £{reward.toLocaleString()}
+    </p>
+    <p class="text-sm text-gray-600">
+      Deadline: {new Date(deadline).toLocaleDateString('en-GB', { month: 'short', day: 'numeric' })}
+    </p>
+  </div>
+
+  <div class="flex gap-2 flex-wrap mb-4">
+    <Badge variant={difficultyColours[difficulty]} size="sm">
+      {difficulty}
+    </Badge>
+    {tags.slice(0, 2).map(tag => (
+      <Badge variant="secondary" size="sm">
+        {tag}
+      </Badge>
+    ))}
+  </div>
+
+  <div class="flex justify-between items-center">
+    <span class={`text-sm font-medium ${isOpen ? 'text-success' : 'text-gray-500'}`}>
+      {isOpen ? '✓ Open' : 'Closed'}
+    </span>
+    <span class="text-accent text-sm font-semibold">View →</span>
+  </div>
+</a>

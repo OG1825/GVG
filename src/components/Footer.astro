@@ -1,0 +1,82 @@
+---
+const currentYear = new Date().getFullYear();
+
+const footerSections = [
+  {
+    title: 'Product',
+    links: [
+      { label: 'Bounties', href: '/bounties' },
+      { label: 'How it Works', href: '/how-it-works' },
+      { label: 'Events', href: '/events' }
+    ]
+  },
+  {
+    title: 'Community',
+    links: [
+      { label: 'Join', href: '/join' },
+      { label: 'Partners', href: '/partners' },
+      { label: 'Updates', href: '/#news' }
+    ]
+  },
+  {
+    title: 'Resources',
+    links: [
+      { label: 'Contributing', href: '/contributing' },
+      { label: 'Code of Conduct', href: '/#conduct' }
+    ]
+  }
+];
+---
+
+<footer class="bg-primary text-white py-12 sm:py-16">
+  <div class="container-custom">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+      <div>
+        <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+          <span>🚀</span>
+          <span>GVG</span>
+        </h3>
+        <p class="text-gray-300 text-sm mb-4">
+          Gompels Venture Guild funds and ships real projects through bounty challenges and build nights.
+        </p>
+        <div class="flex gap-3">
+          <a href="#" aria-label="Discord" class="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center hover:bg-accent transition">
+            <span>🔘</span>
+          </a>
+          <a href="#" aria-label="Twitter" class="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center hover:bg-accent transition">
+            <span>𝕏</span>
+          </a>
+          <a href="#" aria-label="Email" class="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center hover:bg-accent transition">
+            <span>✉</span>
+          </a>
+        </div>
+      </div>
+
+      {footerSections.map(section => (
+        <div>
+          <h4 class="font-bold mb-4 text-sm uppercase tracking-wider">
+            {section.title}
+          </h4>
+          <ul class="space-y-2">
+            {section.links.map(link => (
+              <li>
+                <a href={link.href} class="text-gray-300 hover:text-white transition-colors text-sm">
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="border-t border-gray-700 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-gray-400 text-sm">
+        © {currentYear} Gompels Venture Guild. All rights reserved.
+      </p>
+      <p class="text-gray-400 text-sm">
+        Crafted with ❤️ by student contributors
+      </p>
+    </div>
+  </div>
+</footer>
